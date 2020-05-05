@@ -33,12 +33,28 @@ class MapSampleState extends State<MapSample> {
   LocationData currentLocation;
 
 
+  // Future<Position> locateUser() async {
+  //   return Geolocator()
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  // }
+
   @override
-  void initState(){
-    getLocation();
-    loading = true;
+  void initState() {
+    setState(() {
+      getLocation();
+    });
+    // loading = true;
     super.initState();
   }
+
+  // getUserLocation() async {
+  //   __currentLocation = await locateUser();
+  //   setState(() {
+  //     latLng = LatLng(__currentLocation.latitude, __currentLocation.longitude);
+  //     _onAddMarkerButtonPressed();
+  //   });
+  //   print('center:====== $latLng');
+  // }
 
 
    getLocation() async {
@@ -143,18 +159,14 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    print("getLocation111:$latLng");
+//    print("getLocation111:$latLng");
     return new Scaffold(
 
       body:
-      loading
-          ?
-      Container(color: Colors.red,)
-          :
       GoogleMap(
         polylines: polyLines,
-         markers: _markers,
-         mapType: MapType.normal,
+        markers: _markers,
+        mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: latLng,
           zoom: 14.4746,
@@ -164,6 +176,7 @@ class MapSampleState extends State<MapSample> {
           _controller.complete(controller);
         },
       ),
+
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (){
